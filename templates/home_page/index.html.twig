@@ -4,11 +4,19 @@
 
 {% block body %}
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-    <div>
-        <a href="{{ path('app_login') }}">Connexion</a>
-    </div>
+
+
+    {% if app.user %}
+        <h1>Hello {{ app.user.email }}! ✅</h1>
+     {% else %} 
+        <h1>Bienvenue sur Arnaud land ! !</h1>
+    {% endif %}
+
+
     {% if app.user == false %}
+        <div>
+            <a href="{{ path('app_login') }}">Connexion</a>
+        </div>
         <div>
             <a href="{{ path('app_register') }}">Inscription</a>
         </div>
@@ -17,6 +25,7 @@
             <a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>       
     {% endif %}
+
     {# condition pour vérifier si l'utilisateur est admin affiche le dasboard #}
     {% if  is_granted("ROLE_ADMIN") %} 
         <div>
